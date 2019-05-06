@@ -1,7 +1,7 @@
 [build]
   Command = "npm run build"
   functions = "functions"
-  publish = "public"
+  publish = "dist"
 [context.production]
   [context.production.environment]
     CONNPASS_SERIES_ID="1712"
