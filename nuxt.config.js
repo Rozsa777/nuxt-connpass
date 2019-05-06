@@ -22,6 +22,26 @@ module.exports = {
   ** Modules
   */
   modules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/proxy',
     '@nuxtjs/pwa'
-  ]
+  ],
+  proxy: {
+    '/events': 'http://localhost:9000'
+  },
+  env: {
+    FRONT_API_URL: process.env.FRONT_API_URL
+  },
+  generate: {
+    routes (callback) {
+      const {api} = require('./src/events')
+      require('dotenv').config()
+      return api().then((result) => {
+        const routes = result.map((event) => {
+          return `/event/${event.event_id}`
+        })
+        callback(null, routes)
+      }).catch(callback)
+    }
+  }
 }

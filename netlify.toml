@@ -5,3 +5,4 @@
 [context.production]
   [context.production.environment]
     CONNPASS_SERIES_ID="1712"
+    FRONT_API_URL="https://nuxt-connpass.netlify.com/.netlify/functions"

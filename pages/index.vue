@@ -24,29 +24,16 @@
   import Logo from '~/components/Logo.vue'
 
   export default {
-    components: {Logo},
     data () {
-      return {
-        online: true
+      return {}
+    },
+    computed: {
+      events () {
+        return this.$store.state.events
       }
     },
-    mounted () {
-      if (!window.navigator) {
-        this.online = false
-        return
-      }
-      this.online = Boolean(window.navigator.onLine)
-      window.addEventListener('offline', this._toggleNetworkStatus)
-      window.addEventListener('online', this._toggleNetworkStatus)
-    },
-    methods: {
-      _toggleNetworkStatus ({ type }) {
-        this.online = type === 'online'
-      }
-    },
-    destroyed () {
-      window.removeEventListener('offline', this._toggleNetworkStatus)
-      window.removeEventListener('online', this._toggleNetworkStatus)
+    async fetch ({store}) {
+      await store.dispatch('LOAD_EVENTS')
     }
   }
 </script>
